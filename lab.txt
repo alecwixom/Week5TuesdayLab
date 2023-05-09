@@ -1,0 +1,77 @@
+Brainstorming
+Sign in email & pass
+User created recipe with ingredients and instruction
+Public or private
+Recipe ingredients can be added to grocery list
+User can create their own occasions and assign recipes to occasions
+
+Table Ideas
+
+User table
+User_id & password will hold info about the user log in
+
+Recipe table
+Recipe_id User_id name and instructions recipebelongsto_one(boolean-default true)
+
+Ingredients table
+Name unit unit_amount
+
+Grocery list table
+User_id Recipe_id
+
+Occasions
+Occasions_id Recipe_id User_id
+
+
+Relationships
+
+One To One:
+User table(User_id, password) Its tied to one user
+
+One To Many
+Recipe: Tied to one user (private or public) uses many ingredients
+Grocery: Tied to one user, uses many ingredients from a recipe
+Occasions: Can have many recipe’s tied to one user
+
+Many To Many
+Ingredients: Tied to a lot of grocery lists and recipes
+Occasions: Can be tied to a lot of recipes depending on occasions
+
+Columns
+
+User {
+	user_id integer unique
+	password_id integer unique
+	user_email varchar
+}
+
+Recipe {
+	recipe_id varchar pk unique
+	instructions varchar
+	private boolean
+	name varchar
+	user_id integer > User.user_id
+	ingredient_id varchar > Ingredients.ingredient_id
+}
+
+Ingredients {
+	ingredient_id varchar
+	name varchar unique
+	unit_measure decimal
+	unit_amount decimal
+	recipe_id varchar > Recipe.recipe_id
+}
+
+Grocery {
+	user_id integer > User.user_id
+	recipe_id varchar > Recipe.recipe_id
+}
+
+Occasions {
+	occasion_name varchar unique
+	occasion_id integer null
+	recipe_id integer > Recipe.recipe_id
+	user_id integer > User.user_id
+}
+
+
